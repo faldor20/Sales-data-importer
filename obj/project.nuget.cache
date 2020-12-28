@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "dgSpecHash": "PCX46obEsnpoLTaJ+gAKywo7wYzJKt09cp8rHHjIu5jO0j3zKvax6NoLGf4MSm43QQ5H0h2YoS2aaxHbwtGaFg==",
+  "success": true,
+  "projectFilePath": "/home/eli/Desktop/Code/FSharp/Sales-data-importer/Sales-data-importer.fsproj",
+  "expectedPackageFiles": [
+    "/home/eli/.nuget/packages/exceldatareader/3.4.1/exceldatareader.3.4.1.nupkg.sha512",
+    "/home/eli/.nuget/packages/exceldatareader.dataset/3.4.1/exceldatareader.dataset.3.4.1.nupkg.sha512",
+    "/home/eli/.nuget/packages/excelprovider/1.0.1/excelprovider.1.0.1.nupkg.sha512",
+    "/home/eli/.nuget/packages/fsharp.configuration/2.0.0-alpha3/fsharp.configuration.2.0.0-alpha3.nupkg.sha512",
+    "/home/eli/.nuget/packages/fsharp.core/5.0.0/fsharp.core.5.0.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/fsharp.data/3.3.3/fsharp.data.3.3.3.nupkg.sha512",
+    "/home/eli/.nuget/packages/microsoft.netcore.platforms/2.0.0/microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/microsoft.win32.systemevents/4.5.0/microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/npoi/2.5.2/npoi.2.5.2.nupkg.sha512",
+    "/home/eli/.nuget/packages/portable.bouncycastle/1.8.6/portable.bouncycastle.1.8.6.nupkg.sha512",
+    "/home/eli/.nuget/packages/sharpziplib/1.2.0/sharpziplib.1.2.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.configuration.configurationmanager/4.5.0/system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.drawing.common/4.5.0/system.drawing.common.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.0/system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.security.accesscontrol/4.5.0/system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.security.cryptography.protecteddata/4.5.0/system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.security.permissions/4.5.0/system.security.permissions.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.security.principal.windows/4.5.0/system.security.principal.windows.4.5.0.nupkg.sha512",
+    "/home/eli/.nuget/packages/system.text.encoding.codepages/4.5.0/system.text.encoding.codepages.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,92 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/eli/Desktop/Code/FSharp/Sales-data-importer/Sales-data-importer.fsproj": {}
+  },
+  "projects": {
+    "/home/eli/Desktop/Code/FSharp/Sales-data-importer/Sales-data-importer.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/eli/Desktop/Code/FSharp/Sales-data-importer/Sales-data-importer.fsproj",
+        "projectName": "Sales-data-importer",
+        "projectPath": "/home/eli/Desktop/Code/FSharp/Sales-data-importer/Sales-data-importer.fsproj",
+        "packagesPath": "/home/eli/.nuget/packages/",
+        "outputPath": "/home/eli/Desktop/Code/FSharp/Sales-data-importer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/eli/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "ExcelDataReader": {
+              "target": "Package",
+              "version": "[3.4.1, )",
+              "generatePathProperty": true
+            },
+            "ExcelDataReader.DataSet": {
+              "target": "Package",
+              "version": "[3.4.1, )",
+              "generatePathProperty": true
+            },
+            "ExcelProvider": {
+              "target": "Package",
+              "version": "[1.0.1, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Configuration": {
+              "target": "Package",
+              "version": "[2.0.0-alpha3, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "target": "Package",
+              "version": "[5.0.0, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Data": {
+              "target": "Package",
+              "version": "[3.3.3, )",
+              "generatePathProperty": true
+            },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.5.2, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.101/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+InputPath: ./SalesInput.xls
+MonthsRow: 22
+DataStartRow: 28
