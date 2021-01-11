@@ -5,6 +5,7 @@ open FSharp.Interop.Excel
 open FSharp.Interop.Excel.ExcelProvider
 open System.Collections.Generic
 open System.IO
+open FSharp.Data
 type a=ExcelFile<"./SalesAnalysis.xls",HasHeaders=false>
 
 //gets the block of data as defined by the dataStart(row) and dataindexes(columns)  
@@ -20,23 +21,42 @@ let takedata (range:IEnumerable<a.Row>) dataStart dataIndexes =
             |>List.map(fun x->match x with |null->None|y->Some y))
         |>Seq.toList
     data
+//selects on the columns containg data, as defined by dataIndexs
+let selectColumns  dataIndexs range=
+    let rec thing (range:list<int*string option>) (dataIndexs:list<int>) output= 
+        match range,dataIndexs with
+        |_,[]-> output|>List.rev
+        |head::tail,desiredIndex::rest->
+            let index,cell= head 
+            if index=desiredIndex then
+                thing tail rest (cell::output)
+            else thing tail dataIndexs output
+    
+    range|>List.map(fun row->
+        let a= row|>List.indexed
+        //fast way:
+        //thing a dataIndexs []
+        //slow way:
+        a|>List.choose(fun (i,x)-> if(dataIndexs|>List.contains i)then Some x else None)
+
+    )
+
+let ConvertFromCsv (csv:CsvFile)=
+    csv.Rows|>Seq.map(fun r->r.Columns|>Seq.map(fun x->if x="" then None else Some(x)))
 
 ///Returns a list of the columns that containin data
-let getRelevantColumns (range:IEnumerable<a.Row>) monthRow=
+let getRelevantColumns (range:list<list<string option>>) monthRow=
     let monthRow= 
-        range|>Seq.skip (monthRow-1)
-        |>Seq.head
-    let a: obj array=Array.create  500 null;    
-    for cell in 0..(500-1) do
-        a.[cell]<- monthRow.TryGetValue cell ""
-    let dataIndexes=a|>Array.toList|> List.indexed|>List.filter (fun (index,y)->y<>null)|>List.map(fun(index,_)->index)
-    let a=0::dataIndexes
+        range|>List.skip (monthRow-1)
+        |>List.head
+    let dataIndexes=monthRow|> List.indexed|>List.filter (fun (index,y)->y.IsSome)|>List.map(fun(index,_)->index)
+    let a=dataIndexes //there is some chance i need to add a 0 to the beginning if the first column isn't being added
     a
-///Removes rows that have nothing in their first column(and presumably all others)
-let removeEmpties( list:obj option list list )=
+///Removes rows that have nothing in their first row(This should containa heading if there is data)
+let removeEmptyRows( list:'a option list list )=
     list|>List.filter(fun x->x.Head.IsSome)
 ///Takes the first item in the list and moves it to a tuple. In our case this is the customer name
-let seperateNames ( list:obj option list list )=
+let seperateNames ( list:'a option list list )=
     list|>List.map( fun x->(x.Head.Value,x.Tail))
 ///returns a list of customers who were paid this month in all the years provided.
 ///eg customers paid nov 2019 nov 2018 and nov 2017

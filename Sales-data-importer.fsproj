@@ -3,11 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Sales_data_importer</RootNamespace>
+    <RootNamespace>Main</RootNamespace>
+
   </PropertyGroup>
   <ItemGroup>
 
     <Compile Include="Manipulations.fs" />
+    <Compile Include="DB.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
@@ -15,8 +17,10 @@
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.4.1.0" />
     <PackageReference Include="ExcelProvider" Version="1.0.1" />
     <PackageReference Include="FSharp.Configuration" Version="2.0.0-alpha3" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.1" />
     <PackageReference Include="NPOI" Version="2.5.2" />
     <PackageReference Include="FSharp.Data" Version="3.3.3" />
+    <PackageReference Include="FSharp.Data.Dapper" Version="2.0.0" />
   </ItemGroup>
   
 </Project>
