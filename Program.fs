@@ -40,6 +40,7 @@ let combineData2(dataList:FilesNamesMonthsPayments)=
     let res=
         rest
         //we fold it with the dictionary so we acccumulate the chagnes made by each years data
+        //we allso include how many months have been before so we can prepend those to any new data. thus keeping 
         |>List.fold (fun (i,dict) x->
             //same as above except now we are accumulating each customers data for the year
             let preMonths =List.init (12*i) (fun _->None)

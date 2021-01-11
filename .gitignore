@@ -5,3 +5,8 @@
 x64/
 [Bb]in/
 [Oo]bj/
+obj/
+
+bin/
+
+.ionide/
