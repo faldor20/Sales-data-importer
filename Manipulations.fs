@@ -10,7 +10,7 @@ type a=ExcelFile<"./SalesAnalysis.xls",HasHeaders=false>
 
 //gets the block of data as defined by the dataStart(row) and dataindexes(columns)  
 let takedata (range:IEnumerable<a.Row>) dataStart dataIndexes =
-    let dataRange=range|>Seq.skip (dataStart-1)
+    let dataRange=range|>Seq.skip (dataStart)
     //gets the data as selected by dataIndexes 
     //NOTE: Some data may come back as null.
     let data=
@@ -43,12 +43,15 @@ let selectColumns  dataIndexs range=
 
 let ConvertFromCsv (csv:CsvFile)=
     csv.Rows|>Seq.map(fun r->r.Columns|>Seq.map(fun x->if x="" then None else Some(x)))
-
+//Used to remove the total column at the end
+let removeLastColumn (range:list<list<string option>>)=
+    range|>List.map(fun x-> x|>List.take (x.Length-1))
 ///Returns a list of the columns that containin data
 let getRelevantColumns (range:list<list<string option>>) monthRow=
     let monthRow= 
-        range|>List.skip (monthRow-1)
-        |>List.head
+        range.[monthRow] //we ake one off for 0 indexing
+        
+    printfn "Monthrow: %A" monthRow
     let dataIndexes=monthRow|> List.indexed|>List.filter (fun (index,y)->y.IsSome)|>List.map(fun(index,_)->index)
     let a=dataIndexes //there is some chance i need to add a 0 to the beginning if the first column isn't being added
     a
@@ -60,7 +63,7 @@ let seperateNames ( list:'a option list list )=
     list|>List.map( fun x->(x.Head.Value,x.Tail))
 ///returns a list of customers who were paid this month in all the years provided.
 ///eg customers paid nov 2019 nov 2018 and nov 2017
-let getMonthsPayments (paymentsPerMonth:(obj*obj option list list) list) month=
+let getMonthsPayments (paymentsPerMonth:(string*string option list list) list) month=
     paymentsPerMonth|>List.choose(fun (name,payments)->
         if payments.[month]|>List.exists(fun x->x.IsSome) then
             Some (name,payments.[month])
@@ -68,7 +71,7 @@ let getMonthsPayments (paymentsPerMonth:(obj*obj option list list) list) month=
         )
 ///Get the current month and previous months payments. 
 ///Currently highly inneficient becuase it runs get month payments on each month previous to the current one.
-let getThisAndPreviousMonthsPayments (paymentsPerMonth:(obj*obj option list list) list) month=
+let getThisAndPreviousMonthsPayments (paymentsPerMonth:(string*string option list list) list) month=
     //get a list of all clients needed in that month by getting the names of the cleints need by all previous months plus this one
 
     let neededClients= 
@@ -86,18 +89,18 @@ let getThisAndPreviousMonthsPayments (paymentsPerMonth:(obj*obj option list list
     res
 
 ///Appends the name to the beginning of the list becuase as a csv or spreadsheet the name is the first column
-let prepData (list: list<obj * list<option<obj>>>)=
+let prepData (list: list<'a * list<option<'a>>>)=
     list|>List.map(fun (x,y)->(Some x)::y)
 
-let csvPair (state:string) (y:obj option )=
+let csvPair (state:string) (y:string option )=
     let csvValue=
         if y.IsSome then
         //Some values have "," in them which would stuff up our csv
-            (y.Value :?> string).Replace(",","")
+            y.Value.Replace(",","")
         else " "
     sprintf "%s%s,"state csvValue
 ///Turns the data into a csv
-let makecsv (data:obj option list list) =
+let makecsv (data:string option list list) =
     data|>List.fold(fun state x->
         (sprintf "%s%s \n" 
             state 
@@ -109,7 +112,7 @@ let makecsv (data:obj option list list) =
 //Why we transpose:
 //before:  [ year1[ month1y1,month2y1,month3y1], year2[m1y2,m1y2,m1y2]]
 //after: [month1[m1y1,m1y2],month2[m2y1,m2y2]]etc etc
-let createLists monthsPerYear ( list: (obj*obj option list) list ) =
+let createLists monthsPerYear ( list: (string*string option list) list ) =
     let paymentsPerMonth=
         list
         |>List.map(fun (x,y)->
